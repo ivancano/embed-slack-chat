@@ -57,10 +57,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
+var serverSocket = require('http').createServer(app);
+var io = require('socket.io').listen(serverSocket);
 app.io = io;
-server.listen(3007);
+serverSocket.listen(3007);
 app.io.on('connection', (socket) => {
 	console.log('a user connected');
 	socket.on('disconnect' , function(){
@@ -76,6 +76,9 @@ slackEvents.on('message', (event) => {
 
 // Handle errors (see `errorCodes` export)
 slackEvents.on('error', console.error);
+
+const { createServer } = require('http');
+const server = createServer(slackEvents.requestListener());
 
 // Start a basic HTTP server
 /*slackEvents.start(port).then(() => {
