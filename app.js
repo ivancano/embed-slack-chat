@@ -4,6 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+const { createEventAdapter } = require('@slack/events-api');
+const slackEvents = createEventAdapter('e13df5d44e7c94341c6703dc9a416198');
+const port = 3006;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -63,6 +66,19 @@ app.io.on('connection', (socket) => {
 	    console.log('disconnect');
       app.io.emit('disconnect', null);
 	});
+});
+
+slackEvents.on('message', (event) => {
+  console.log(`Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
+});
+
+// Handle errors (see `errorCodes` export)
+slackEvents.on('error', console.error);
+
+// Start a basic HTTP server
+slackEvents.start(port).then(() => {
+  // Listening on path '/slack/events' by default
+  console.log(`server listening on port ${port}`);
 });
 
 module.exports = app;

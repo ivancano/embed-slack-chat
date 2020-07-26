@@ -11,12 +11,4 @@ router.get('/', function(req, res, next) {
 	})
 });
 
-router.post('/events', function(req, res, next){
-	res.json({
-	    "token": "H2oxu3adMAJ4nJPRanniHAEP",
-	    "challenge": "EsovXIbWEtvrS2Q0V1xEvnnWIQ4Ew87eO515taaptYXP1aq8HrEt",
-	    "type": "url_verification"
-	})
-})
-
 module.exports = router;
