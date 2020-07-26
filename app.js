@@ -13,7 +13,7 @@ var usersRouter = require('./routes/users');
 var messagesRouter = require('./routes/messages');
 
 var app = express();
-const whitelist = ['http://localhost:3006','http://localhost', 'http://165.227.29.132:3006','http://165.227.29.132'];
+const whitelist = ['http://localhost', 'http://165.227.29.132:3006','http://165.227.29.132'];
 //const whitelist = ['*'];
 const corsOptions = {
   credentials: true, // This is important.
@@ -39,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/messages', messagesRouter);
+app.use('/events', slackEvents.expressMiddleware());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -77,9 +78,9 @@ slackEvents.on('message', (event) => {
 slackEvents.on('error', console.error);
 
 // Start a basic HTTP server
-slackEvents.start(port).then(() => {
+/*slackEvents.start(port).then(() => {
   // Listening on path '/slack/events' by default
   console.log(`server listening on port ${port}`);
-});
+});*/
 
 module.exports = app;
