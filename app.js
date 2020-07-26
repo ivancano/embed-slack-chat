@@ -6,7 +6,7 @@ var logger = require('morgan');
 var cors = require('cors');
 const { createEventAdapter } = require('@slack/events-api');
 const slackEvents = createEventAdapter('e13df5d44e7c94341c6703dc9a416198');
-const port = 3006;
+//const port = 3006;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
