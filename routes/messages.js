@@ -13,7 +13,7 @@ router.post('/get-list', async function(req, res, next) {
 	const conversationId = req.body.conversationId;
 	const messages = await web.conversations.history({channel: conversationId});
 
-	const rtm = new RTMClient(token);
+	/*const rtm = new RTMClient(token);
 	rtm.disconnect();
 	rtm.start().catch(console.error);
 
@@ -22,7 +22,7 @@ router.post('/get-list', async function(req, res, next) {
 	  // For example, https://api.slack.com/events/user_typing
 	  console.log("envio un msg");
 	  req.app.io.emit('message', event);
-	})
+	})*/
 	res.json({ messages: messages.messages });
 });
 

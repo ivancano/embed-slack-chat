@@ -70,6 +70,7 @@ app.io.on('connection', (socket) => {
 
 slackEvents.on('message', (event) => {
   console.log(`Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
+  app.io.emit('message', event);
 });
 
 // Handle errors (see `errorCodes` export)
