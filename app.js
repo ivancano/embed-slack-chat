@@ -26,7 +26,8 @@ const corsOptions = {
   }
 }
 app.use(cors(corsOptions))
-app.use(express.bodyParser())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
