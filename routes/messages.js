@@ -54,7 +54,7 @@ router.post('/post-file', async function(req, res, next) {
 
 	const result = await web.files.upload({filename, file: createReadStream('test.png')});
 
-	res.json({ result: 1 });
+	res.json(result);
 });
 
 module.exports = router;
