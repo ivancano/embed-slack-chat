@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const { createReadStream } = require('fs');
-var bodyParser = require('body-parser');
 const { WebClient } = require('@slack/web-api');
 const { RTMClient } = require('@slack/rtm-api');
 
