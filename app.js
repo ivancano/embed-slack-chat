@@ -13,8 +13,8 @@ var usersRouter = require('./routes/users');
 var messagesRouter = require('./routes/messages');
 
 var app = express();
-const whitelist = ['http://localhost', 'http://165.227.29.132:3006','http://165.227.29.132'];
-//const whitelist = ['*'];
+//const whitelist = ['http://localhost', 'http://165.227.29.132:3006','http://165.227.29.132'];
+const whitelist = ['*'];
 const corsOptions = {
   credentials: true, // This is important.
   origin: (origin, callback) => {
