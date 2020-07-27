@@ -5,8 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var bodyParser = require('body-parser');
-var form = require('connect-form');
-var busboy = require('connect-busboy');
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads/' });
 const { createEventAdapter } = require('@slack/events-api');
 const slackEvents = createEventAdapter('e13df5d44e7c94341c6703dc9a416198');
 const port = 3006;
@@ -38,7 +38,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(busboy());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
