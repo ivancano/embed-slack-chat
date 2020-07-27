@@ -6,15 +6,15 @@ var logger = require('morgan');
 var cors = require('cors');
 const { createEventAdapter } = require('@slack/events-api');
 const slackEvents = createEventAdapter('e13df5d44e7c94341c6703dc9a416198');
-//const port = 3006;
+const port = 3006;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var messagesRouter = require('./routes/messages');
 
 var app = express();
-//const whitelist = ['http://localhost', 'http://165.227.29.132:3006','http://165.227.29.132'];
-const whitelist = ['*'];
+const whitelist = ['http://localhost', 'http://165.227.29.132:3006','http://165.227.29.132'];
+//const whitelist = ['*'];
 const corsOptions = {
   credentials: true, // This is important.
   origin: (origin, callback) => {
@@ -24,7 +24,7 @@ const corsOptions = {
       callback(new Error('Not allowed by CORS'));
   }
 }
-app.use(cors())
+app.use(cors(corsOptions))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,7 +39,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/messages', messagesRouter);
-app.use('/events', slackEvents.expressMiddleware());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -57,10 +56,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var serverSocket = require('http').createServer(app);
-var io = require('socket.io').listen(serverSocket);
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
 app.io = io;
-serverSocket.listen(3007);
+server.listen(3007);
 app.io.on('connection', (socket) => {
 	console.log('a user connected');
 	socket.on('disconnect' , function(){
@@ -78,9 +77,9 @@ slackEvents.on('message', (event) => {
 slackEvents.on('error', console.error);
 
 // Start a basic HTTP server
-/*slackEvents.start(port).then(() => {
+slackEvents.start(port).then(() => {
   // Listening on path '/slack/events' by default
   console.log(`server listening on port ${port}`);
-});*/
+});
 
 module.exports = app;
