@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const { createReadStream } = require('fs');
 const { WebClient } = require('@slack/web-api');
 const { RTMClient } = require('@slack/rtm-api');
 
@@ -37,6 +38,21 @@ router.post('/post-message', async function(req, res, next) {
 	const message = req.body.text;
 
 	const result = await web.chat.postMessage({channel: conversationId, text: message, as_user: true, link_names: true});
+
+	res.json({ result: 1 });
+});
+
+router.post('/post-file', async function(req, res, next) {
+
+	// An access token (from your Slack app or custom integration - xoxp, xoxb)
+	//const token = 'xoxp-1282905512672-1259065033858-1259079880194-2c142c0b9af14fcedbb6173fcb26e56d';
+	const token = req.body.token;
+
+	const web = new WebClient(token);
+	const conversationId = req.body.conversationId;
+	const filename = 'test.png';
+
+	const result = await web.files.upload({filename, file: createReadStream('../public/test.png')});
 
 	res.json({ result: 1 });
 });
