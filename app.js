@@ -77,9 +77,6 @@ slackEvents.on('message', (event) => {
 // Handle errors (see `errorCodes` export)
 slackEvents.on('error', console.error);
 
-const { createServer } = require('http');
-const server = createServer(slackEvents.requestListener());
-
 // Start a basic HTTP server
 /*slackEvents.start(port).then(() => {
   // Listening on path '/slack/events' by default
