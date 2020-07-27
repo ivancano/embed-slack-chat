@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-var bodyParser = require('body-parser');
 const { createEventAdapter } = require('@slack/events-api');
 const slackEvents = createEventAdapter('e13df5d44e7c94341c6703dc9a416198');
 const port = 3006;
