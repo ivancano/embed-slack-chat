@@ -33,6 +33,7 @@ router.post('/post-message', async function(req, res, next) {
 	//const token = 'xoxp-1282905512672-1259065033858-1259079880194-2c142c0b9af14fcedbb6173fcb26e56d';
 	const token = req.body.token;
 	console.log(req.body);
+	console.log(req.params);
 
 	const web = new WebClient(token);
 	const conversationId = req.body.conversationId;
