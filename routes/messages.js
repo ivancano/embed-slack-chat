@@ -52,7 +52,7 @@ router.post('/post-file', async function(req, res, next) {
 	const conversationId = req.body.conversationId;
 	const filename = 'test.png';
 
-	const result = await web.files.upload({filename, file: createReadStream('../public/images/test.png')});
+	const result = await web.files.upload({filename, file: createReadStream('test.png')});
 
 	res.json({ result: 1 });
 });
