@@ -31,6 +31,14 @@ router.post('/post-message', async function(req, res, next) {
 
 	// An access token (from your Slack app or custom integration - xoxp, xoxb)
 	//const token = 'xoxp-1282905512672-1259065033858-1259079880194-2c142c0b9af14fcedbb6173fcb26e56d';
+	req.form.complete(function(err, fields, files) {
+		if (err) { next(err); }
+		else {
+			console.log(fields);
+			console.log('---------------');
+			console.log(files);
+		}
+	});
 	const token = req.body.token;
 	console.log(req.body);
 	console.log(req.params);
