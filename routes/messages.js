@@ -36,7 +36,7 @@ router.post('/post-message', async function(req, res, next) {
 	const conversationId = req.body.conversationId;
 	const message = req.body.text;
 
-	const result = await web.chat.postMessage({channel: conversationId, text: message, as_user: true});
+	const result = await web.chat.postMessage({channel: conversationId, text: message, as_user: true, link_names: true});
 
 	res.json({ result: 1 });
 });
