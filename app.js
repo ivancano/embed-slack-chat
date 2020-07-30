@@ -13,6 +13,7 @@ const port = 3006;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var newsRouter = require('./routes/news');
 var messagesRouter = require('./routes/messages');
 
 var app = express();
@@ -20,12 +21,13 @@ const whitelist = ['http://localhost', 'http://165.227.29.132:3006','http://165.
 //const whitelist = ['*'];
 const corsOptions = {
   credentials: true, // This is important.
-  origin: (origin, callback) => {
+  origin: '*'
+  /*origin: (origin, callback) => {
     if(whitelist.includes(origin))
       return callback(null, true)
 
       callback(new Error('Not allowed by CORS'));
-  }
+  }*/
 }
 app.use(cors(corsOptions))
 
@@ -42,6 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/messages', messagesRouter);
+app.use('/news', newsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
