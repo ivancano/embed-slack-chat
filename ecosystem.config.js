@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
     name: 'Embed-Slack'
-    script: 'server.js',
+    script: 'app.js',
     env: {
       NODE_ENV: 'production',
       port: 3006;
