@@ -4,11 +4,11 @@ module.exports = {
     script: './app.js',
     env: {
       NODE_ENV: 'development',
-      port: 3006;
+      port: 3006
     },
     env_production: {
       NODE_ENV: 'production',
-      port: 3006;
+      port: 3006
     }
   }],
 };
