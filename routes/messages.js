@@ -10,7 +10,7 @@ router.post('/set-config', async function(req, res, next) {
 
 	const channel = req.body.channel;
 	const signingSecret = req.body.signingSecret;
-	fs.writeFile('slack-config.json', {channel: channel, signingSecret: signingSecret}, function (err) {
+	fs.writeFile('slack-config.json', JSON.stringify({channel: channel, signingSecret: signingSecret}), function (err) {
 	  if (err) return console.log(err);
 	});
 	
