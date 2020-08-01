@@ -8,7 +8,10 @@ var bodyParser = require('body-parser');
 var multer  = require('multer');
 var upload = multer({ dest: 'uploads/' });
 const { createEventAdapter } = require('@slack/events-api');
-const slackEvents = createEventAdapter('e13df5d44e7c94341c6703dc9a416198');
+const fs = require('fs');
+let rawdata = fs.readFileSync('slack-config.json');
+let slackConfig = JSON.parse(rawdata);
+const slackEvents = createEventAdapter(slackConfig.signingSecret);
 const port = 3006;
 
 var indexRouter = require('./routes/index');
@@ -76,7 +79,9 @@ app.io.on('connection', (socket) => {
 
 slackEvents.on('message', (event) => {
   console.log(`Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
-  app.io.emit('message', event);
+  if(event.channel == slackConfig.signingSecret.channel){
+    app.io.emit('message', event);
+  }
 });
 
 // Handle errors (see `errorCodes` export)
