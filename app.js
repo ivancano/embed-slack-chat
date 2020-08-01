@@ -79,7 +79,8 @@ app.io.on('connection', (socket) => {
 
 slackEvents.on('message', (event) => {
   console.log(`Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
-  if(event.channel == slackConfig.signingSecret.channel){
+  console.log();
+  if(event.channel == slackConfig.channel){
     app.io.emit('message', event);
   }
 });
